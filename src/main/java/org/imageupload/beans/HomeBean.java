@@ -1,4 +1,4 @@
-package com.mkyong.beans;
+package org.imageupload.beans;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;

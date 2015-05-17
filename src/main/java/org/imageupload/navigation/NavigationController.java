@@ -1,4 +1,4 @@
-package navigation;
+package org.imageupload.navigation;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;

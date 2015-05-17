@@ -1,4 +1,4 @@
-package com.mkyong.beans;
+package org.imageupload.beans;
 import java.io.File;
 import java.io.IOException;
 import javax.faces.FacesException;
@@ -7,8 +7,9 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.imageio.stream.FileImageOutputStream;
 import javax.servlet.ServletContext;
+
+import org.imageupload.service.ImageService;
 import org.primefaces.event.CaptureEvent;
-import org.springframework.web.client.RestTemplate;
 
 @ViewScoped
 @ManagedBean(name = "camera")
@@ -34,6 +35,9 @@ public class CameraBean {
     public void oncapture(CaptureEvent captureEvent) {
         filename = getRandomImageName();
         byte[] data = captureEvent.getData();
+
+        ImageService imageService = new ImageService();
+        imageService.postImage(data);
 
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String newFileName = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "images" +

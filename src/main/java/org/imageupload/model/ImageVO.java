@@ -1,4 +1,4 @@
-package model;
+package org.imageupload.model;
 
 /**
  * @author Paul Silaghi
@@ -9,26 +9,29 @@ public class ImageVO {
 
     private String name;
 
-    private Byte[] file;
+    private byte[] file;
 
 
+    public ImageVO() {
+
+    }
 
     public ImageVO(String author, String name) {
         this.author = author;
         this.name = name;
     }
 
-    public ImageVO(String author, String name, Byte[] file) {
+    public ImageVO(String author, String name, byte[] file) {
         this.author = author;
         this.name = name;
         this.file = file;
     }
 
-    public Byte[] getFile() {
+    public byte[] getFile() {
         return file;
     }
 
-    public void setFile(Byte[] file) {
+    public void setFile(byte[] file) {
         this.file = file;
     }
 
