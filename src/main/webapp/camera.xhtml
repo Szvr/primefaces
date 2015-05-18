@@ -18,11 +18,17 @@
        <ui:define name="content">
            <h:form>
                <h:panelGrid columns="3" cellpadding="5">
-                   <p:photoCam widgetVar="pc" listener="#{camera.oncapture}" update="photo"/>
+                   <p:photoCam widgetVar="pc" listener="#{camera.oncapture}" update="photo" process="editDetails"/>
                    <p:commandButton type="button" value="Capture" onclick="PF('pc').capture()"/>
                    <p:outputPanel id="photo">
-                       <p:graphicImage name="/images/#{camera.filename}.jpeg" rendered="#{not empty camera.filename}"/>
+                       <p:graphicImage name="/images/#{camera.filename}.jpeg" rendered="#{not empty camera.filename}" title="#{camera.filename} &#13;Author: #{camera.author}"/>
                    </p:outputPanel>
+                   <p:panelGrid columns="2" id="editDetails">
+                       <p:outputLabel value="Title: "/>
+                       <p:inputText value="#{camera.filename}"/>
+                       <p:outputLabel value="Author: "/>
+                       <p:inputText value="#{camera.author}"/>
+                   </p:panelGrid>
                </h:panelGrid>
            </h:form>
        </ui:define>

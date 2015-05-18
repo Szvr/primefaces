@@ -39,8 +39,8 @@ public class ImageService {
         return indexedImageVOs;
     }
 
-    public void postImage(byte[] image) {
-        ImageVO imageVO = new ImageVO("Csabi", "test", image);
+    public void postImage(String author, String fileName, byte[] image) {
+        ImageVO imageVO = new ImageVO(author, fileName, image);
         RestTemplate restTemplate = restTemplate();
         restTemplate.postForLocation(repoUrlForPost, imageVO);
     }

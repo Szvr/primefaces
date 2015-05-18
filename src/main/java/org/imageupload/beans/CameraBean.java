@@ -17,27 +17,32 @@ public class CameraBean {
 
     private final String title = "Camera";
     private String filename;
-
-    public String getTitle() {
-        return title;
-    }
-
-    private String getRandomImageName() {
-        int i = (int) (Math.random() * 10000000);
-
-        return String.valueOf(i);
-    }
+    private String author;
 
     public String getFilename() {
         return filename;
     }
+    public String getTitle() {
+        return title;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public void oncapture(CaptureEvent captureEvent) {
-        filename = getRandomImageName();
         byte[] data = captureEvent.getData();
 
         ImageService imageService = new ImageService();
-        imageService.postImage(data);
+        imageService.postImage(author, filename, data);
 
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
         String newFileName = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "images" +
