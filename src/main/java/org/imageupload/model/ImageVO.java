@@ -9,6 +9,8 @@ public class ImageVO {
 
     private String name;
 
+    private int id;
+
     private byte[] file;
 
 
@@ -49,5 +51,13 @@ public class ImageVO {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

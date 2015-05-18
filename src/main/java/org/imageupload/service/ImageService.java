@@ -34,8 +34,9 @@ public class ImageService {
                 8080, 0, 100);
         PagedResources<ImageVO> resources = responseEntity.getBody();
         List<ImageVO> imageVOs = new ArrayList(resources.getContent());
+        List<ImageVO> indexedImageVOs = indexImages(imageVOs);
 
-        return imageVOs;
+        return indexedImageVOs;
     }
 
     public void postImage(byte[] image) {
@@ -55,6 +56,19 @@ public class ImageService {
 
         RestTemplate template = new RestTemplate(Collections.<HttpMessageConverter<?>> singletonList(converter));
         return template;
+    }
+
+    private List<ImageVO> indexImages(List<ImageVO> imageVOs) {
+        List<ImageVO> indexedImages = new ArrayList<ImageVO>(imageVOs.size());
+        int index = 0;
+
+        for (ImageVO imageVO: imageVOs) {
+            imageVO.setId(index);
+            indexedImages.add(imageVO);
+            index++;
+        }
+
+        return indexedImages;
     }
 
 }

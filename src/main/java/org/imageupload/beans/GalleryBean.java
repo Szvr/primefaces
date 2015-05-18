@@ -23,27 +23,19 @@ import java.util.List;
 /**
  * @Author Csaba Szever
  */
-@ApplicationScoped
+@ViewScoped
 @ManagedBean(name = "gallery")
 public class GalleryBean {
 
     private final String title = "Gallery";
     private final List<ImageVO> images;
 
-    private List<String> imageExtensions = new ArrayList<String>();
-
     @Inject
     private ImageService imageService;
 
     public GalleryBean() {
-        imageExtensions.add(".jpg");
-        imageExtensions.add(".jpeg");
-        imageExtensions.add(".gif");
-        imageExtensions.add(".png");
-        imageExtensions.add(".bmp");
         imageService = new ImageService();
         this.images = imageService.getImages();
-
     }
 
     public String getTitle() {
@@ -52,27 +44,6 @@ public class GalleryBean {
 
     public List<ImageVO> getImages() {
         return images;
-    }
-
-    private List<String> initializeImages() {
-        List<String> imageNames = new ArrayList<String>();
-
-        imageService.getImages();
-
-        ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();
-        String imageFolder = servletContext.getRealPath("") + File.separator + "resources" + File.separator + "images";
-
-        File folder = new File(imageFolder);
-        if (folder.isDirectory()) {
-            for(File file: folder.listFiles()) {
-                String fileExtension = file.getName().substring(file.getName().lastIndexOf("."));
-                if (imageExtensions.contains(fileExtension)) {
-                    imageNames.add(file.getName());
-                }
-            }
-        }
-
-        return imageNames;
     }
 
     public StreamedContent getImage() {
@@ -84,9 +55,19 @@ public class GalleryBean {
         }
         else {
             // So, browser is requesting the image. Return a real StreamedContent with the image bytes.
-
-            return new DefaultStreamedContent(new ByteArrayInputStream(imageService.getImages().get(1).getFile()));
+            String id = context.getExternalContext().getRequestParameterMap().get("id");
+            ImageVO image = getImageById(Integer.parseInt(id));
+            return new DefaultStreamedContent(new ByteArrayInputStream(image.getFile()));
         }
+    }
+
+    private ImageVO getImageById(int id) {
+        for (ImageVO imageVO: images) {
+            if (imageVO.getId() == id) {
+                return imageVO;
+            }
+        }
+        return null;
     }
 
 }
