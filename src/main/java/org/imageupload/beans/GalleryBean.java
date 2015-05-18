@@ -1,5 +1,6 @@
 package org.imageupload.beans;
 
+import org.imageupload.model.ImageVO;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ import java.util.List;
 public class GalleryBean {
 
     private final String title = "Gallery";
-    private final List<String> images;
+    private final List<ImageVO> images;
 
     private List<String> imageExtensions = new ArrayList<String>();
 
@@ -41,7 +42,7 @@ public class GalleryBean {
         imageExtensions.add(".png");
         imageExtensions.add(".bmp");
         imageService = new ImageService();
-        this.images = initializeImages();
+        this.images = imageService.getImages();
 
     }
 
@@ -49,7 +50,7 @@ public class GalleryBean {
         return title;
     }
 
-    public List<String> getImages() {
+    public List<ImageVO> getImages() {
         return images;
     }
 

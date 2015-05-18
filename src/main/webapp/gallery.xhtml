@@ -16,13 +16,11 @@
 	   </ui:define>
 
        <ui:define name="content">
-           <p:contentFlow value="#{gallery.images}" var="image">
-               <p:graphicImage name="/images/#{image}" styleClass="content" />
-               <div class="caption">#{image}</div>
-           </p:contentFlow>
-           <p:graphicImage id="img" value="#{gallery.image}">
+           <ui:repeat value="#{gallery.images}" var="image">
+               <p:graphicImage id="img" value="#{gallery.image}" title="#{image.name} &#13;Author: #{image.author}">
                    <f:param name="imgId" value="img1"/>
-           </p:graphicImage>
+               </p:graphicImage>
+           </ui:repeat>
        </ui:define>
 
     </ui:composition>
