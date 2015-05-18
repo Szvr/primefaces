@@ -29,6 +29,15 @@ public class ImageVO {
         this.file = file;
     }
 
+    public String calculateTitle() {
+        StringBuilder builder = new StringBuilder();
+        builder.append(name);
+        builder.append("\r");
+        builder.append("Author: " + author);
+
+        return builder.toString();
+    }
+
     public byte[] getFile() {
         return file;
     }

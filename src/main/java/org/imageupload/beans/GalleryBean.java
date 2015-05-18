@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Scope;
 
 import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.PhaseId;
@@ -23,7 +24,7 @@ import java.util.List;
 /**
  * @Author Csaba Szever
  */
-@ViewScoped
+@RequestScoped
 @ManagedBean(name = "gallery")
 public class GalleryBean {
 

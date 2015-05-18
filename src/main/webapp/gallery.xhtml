@@ -17,7 +17,7 @@
 
        <ui:define name="content">
            <ui:repeat value="#{gallery.images}" var="image">
-               <p:graphicImage id="img" value="#{gallery.image}" title="#{image.name} &#13;Author: #{image.author}">
+               <p:graphicImage rendered="#{not empty image.file}" id="img" value="#{gallery.image}" title="#{image.calculateTitle()}">
                    <f:param name="id" value="#{image.id}"/>
                </p:graphicImage>
            </ui:repeat>
