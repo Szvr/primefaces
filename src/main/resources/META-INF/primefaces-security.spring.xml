@@ -1,0 +1,80 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                      http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+                       http://www.springframework.org/schema/security
+	                  http://www.springframework.org/schema/security/spring-security.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd"
+       default-lazy-init="false">
+
+
+
+    <context:component-scan annotation-config="true" base-package="org.imageupload.*"/>
+
+    <bean name="bcryptEncoder"
+          class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
+
+
+
+
+
+    <security:http auto-config='false' use-expressions="true">
+
+
+        <security:session-management session-authentication-strategy-ref="sas"/>
+
+
+
+      <!--  <security:intercept-url pattern="/error.xhtml" access="permitAll"/>-->
+
+        <security:intercept-url pattern="/camera.xhtml" access="hasRole('ROLE_ADMIN')"/>
+        <security:intercept-url pattern="/gallery.xhtml" access="hasRole('ROLE_USER')"/>
+
+        <security:intercept-url pattern="/index.xhtml" access="isAuthenticated()"/>
+
+        <security:intercept-url pattern="/login.xhtml" access="permitAll"/>
+
+
+
+        <security:intercept-url pattern="/favicon.ico" access="permitAll"/>
+        <security:intercept-url pattern="/template/common/commonLayout.xhtml" access="permitAll"/>
+
+
+        <security:form-login login-page="/login.xhtml"
+                      default-target-url="/index.xhtml"       />
+        <!--<security:form-login
+                default-target-url="/acasa.xhtml"            />-->
+
+       <!-- <security:session-management session-authentication-strategy-ref="sas" />-->
+        <security:logout invalidate-session="true" logout-success-url="/login.xhtml" logout-url="/logout" />
+       <!--  enable csrf protection -->
+         <security:csrf disabled="true"/>
+    <!--    <security:custom-filter after="FORM_LOGIN_FILTER" ref="userContextFilter" />-->
+
+    </security:http>
+
+
+    <bean id="myAuthFilter" class=
+            "org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter">
+        <property name="sessionAuthenticationStrategy" ref="sas" />
+        <property name="authenticationManager" ref="authenticationManager" />
+
+    </bean>
+
+
+    <bean id="sas" class=
+            "org.springframework.security.web.authentication.session.SessionFixationProtectionStrategy" />
+
+
+    <security:authentication-manager alias="authenticationManager">
+        <security:authentication-provider user-service-ref="customUserDetailsService" >
+            <security:password-encoder ref="bcryptEncoder" />
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+
+
+
+</beans>

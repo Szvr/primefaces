@@ -7,6 +7,12 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans">
 
 
+    <import resource="classpath*:/META-INF/primefaces-security.spring.xml"/>
+
     <context:component-scan annotation-config="true" base-package="org.imageupload.*"/>
+
+    <bean id="loginPage" class="org.imageupload.beans.LoginPage" scope="session">
+        <property name="authenticationManager" ref="authenticationManager"/>
+    </bean>
 
 </beans>

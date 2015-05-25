@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2014 Irian Software Development SRL. All Rights Reserved.
+  ~ This software is the proprietary information of Irian Software Development SRL.
+  ~ Use is subject to license and non-disclosure terms
+  -->
+
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      >
+<h:head>
+    <style type="text/css">
+
+        tr {
+            border: hidden !important;
+            background: none !important;
+        }
+
+        td {
+            border-width: 0px !important;
+        }
+
+        .customTitle {
+            border: none !important;
+            background: none !important;
+
+            width: 100%;
+            text-align: left;
+        }
+
+        .customTitleText {
+            color: #ffffff !important;
+            font-size: 1em !important;;
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+            font-weight: 100 !important;
+        }
+
+        .logo {
+            width: 128px;
+            margin-right: 20px;
+            height: 64px;
+            margin-top: 10px;
+            text-align: right;
+        }
+
+        .save {
+            background: none !important;
+            font-size: 1em;
+            background-color: #0094df !important;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 40px;
+            width: 220px;
+        }
+    </style>
+    <style type="text/css">
+        html {
+            height:100&#37;
+        }
+    </style>
+
+
+    <title>Log in</title>
+</h:head>
+<h:body style="text-align: center;margin:0px">
+
+    <p:panelGrid id="title_grid" columns="2"
+                 style="text-align:right;  background-color:#0094df;border: none;width: 100%"
+            >
+        <p:panel id="total_quantity" styleClass="customTitle">
+            <p:outputLabel value="Image upload" styleClass="customTitleText"/>
+        </p:panel>
+
+        <h:graphicImage styleClass="logo" value="resources/images/welcome.jpg"/>
+    </p:panelGrid>
+
+    <p:panelGrid id="content_grid" columns="2" style="width:100%">
+        <h:graphicImage value="resources/images/kitty.jpg"
+                        style="margin-left: auto;margin-right: auto;margin-top: 40px;"/>
+        <h:form id="centerForm">
+
+        <p:messages id="msgs"  autoUpdate="true"/>
+        <p:panelGrid id="grid" columns="1"
+                         style="width:100%;background: transparent;text-align:left;margin-left: auto;margin-right: auto;margin-top: 60px;"
+                    >
+
+                <p:outputLabel value="User Name:" for="name" style="font-size:0.8em; border: 1px solid #fff"/>
+                <p:inputText id="name" value="#{loginPage.userName}" required="true" requiredMessage="Username required!"
+                             style="border: 1px solid #fff">
+                    <f:validateLength maximum="32"/>
+                </p:inputText>
+
+                <p:outputLabel value="Password" for="password" style="font-size:0.8em"/>
+                <h:inputSecret id="password" value="#{loginPage.password}"
+                               styleClass="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all">
+                    <f:validateLength maximum="20"/>
+                </h:inputSecret>
+
+                <p:commandButton id="save" styleClass="save" value="Login" action="#{loginPage.login}"
+                                 update=":centerForm" ajax="false"/>
+                <!-- <p:commandButton id="cancel" value="#{lbl.cancel}" action="#{carPage.cancel}" style="float: left"
+                                         immediate="true" ajax="false" />-->
+            </p:panelGrid>
+
+        </h:form>
+    </p:panelGrid>
+</h:body>
+</html>

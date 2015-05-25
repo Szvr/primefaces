@@ -6,14 +6,20 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.imageio.stream.FileImageOutputStream;
+import javax.inject.Inject;
+import javax.inject.Named;
 import javax.servlet.ServletContext;
 
 import org.imageupload.service.ImageService;
 import org.primefaces.event.CaptureEvent;
+import org.springframework.context.annotation.Scope;
 
-@ViewScoped
-@ManagedBean(name = "camera")
+@Named("camera")
+@Scope("request")
 public class CameraBean {
+
+    @Inject
+    private ImageService imageService;
 
     private final String title = "Camera";
     private String filename;
@@ -41,7 +47,7 @@ public class CameraBean {
     public void oncapture(CaptureEvent captureEvent) {
         byte[] data = captureEvent.getData();
 
-        ImageService imageService = new ImageService();
+      //  ImageService imageService = new ImageService();
         imageService.postImage(author, filename, data);
 
         ServletContext servletContext = (ServletContext) FacesContext.getCurrentInstance().getExternalContext().getContext();

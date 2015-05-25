@@ -24,12 +24,12 @@ import java.util.List;
 /**
  * @Author Csaba Szever
  */
-@RequestScoped
-@ManagedBean(name = "gallery")
+@Named("gallery")
+@Scope("request")
 public class GalleryBean {
 
     private final String title = "Gallery";
-    private final List<ImageVO> images;
+    private  List<ImageVO> images = null;
 
     @Inject
     private ImageService imageService;
